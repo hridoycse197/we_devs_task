@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:we_devs_task/src/app.dart';
 
 void main() {
-  runApp( App());
-}
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  runApp(const App());
+}

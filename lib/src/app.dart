@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'config/bindings/base_bindings.dart';
+import 'config/router/app_router.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-  
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Container(),
+      getPages: AppRouter.routes,
+      themeMode: ThemeMode.light,
+      initialBinding: BaseBindings(),
+      initialRoute: AppRouter.splashPage,
     );
   }
 }
