@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-import '../config/bindings/base.dart';
+import '../base/base.dart';
 import '../config/utils/helper.dart';
 import 'custom_button_widget.dart';
 import 'custom_text_widget.dart';

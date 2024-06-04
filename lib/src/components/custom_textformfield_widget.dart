@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:we_devs_task/src/config/enums.dart';
 
 import '../config/utils/helper.dart';
 
@@ -12,6 +13,8 @@ class CustomTextFormField extends StatelessWidget {
   IconData? suffixIcon;
   bool isBorder;
   double height;
+  Function(String)? onChanged;
+  InputType? inputType;
   double width;
   CustomTextFormField(
       {super.key,
@@ -19,6 +22,8 @@ class CustomTextFormField extends StatelessWidget {
       required this.height,
       required this.width,
       required this.hint,
+      this.onChanged,
+      this.inputType,
       required this.textEditingController,
       this.isPrefix = false,
       this.isSuffix = false,
@@ -40,13 +45,23 @@ class CustomTextFormField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        onChanged: onChanged,
+        autovalidateMode: inputType != null
+            ? AutovalidateMode.always
+            : AutovalidateMode.disabled,
+        validator: (value) {
+          String? res;
+          // ... (your existing validation logic)
+          return res;
+        },
         decoration: InputDecoration(
           border: isBorder
               ? const OutlineInputBorder(
                   borderSide: BorderSide(
-                      style: BorderStyle.none,
-                      color: Color.fromARGB(255, 255, 74, 3),
-                      width: 2),
+                    style: BorderStyle.none,
+                    color: Color.fromARGB(255, 255, 74, 3),
+                    width: 2,
+                  ),
                   borderRadius: BorderRadius.all(Radius.circular(1.0)),
                 )
               : InputBorder.none,
@@ -76,8 +91,9 @@ class CustomTextFormField extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.transparent),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          filled: true,
+          filled: false,
           fillColor: Colors.white,
+          // Add this line to display the error message
         ),
       ),
     );

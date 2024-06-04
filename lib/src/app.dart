@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'config/bindings/base_bindings.dart';
+import 'base/base_bindings.dart';
 import 'config/router/app_router.dart';
 
 class App extends StatelessWidget {

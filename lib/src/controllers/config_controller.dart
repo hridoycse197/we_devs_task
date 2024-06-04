@@ -1,7 +1,7 @@
 
 import 'package:get/get.dart';
 
-import '../config/bindings/base.dart';
+import '../base/base.dart';
 import '../config/router/app_router.dart';
 import '../config/utils/helper.dart';
 import '../config/utils/isar_keys.dart';

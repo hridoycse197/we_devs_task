@@ -3,9 +3,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:we_devs_task/src/app.dart';
 
 void main() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.remove();
 
   runApp(const App());
 }

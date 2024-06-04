@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../base/base.dart';
 import '../components/custom_profile_listtile_widget.dart';
 import '../components/custom_text_widget.dart';
 import '../components/image_avatar_profile_widget.dart';
 import '../components/space_vertical_widget.dart';
-import '../config/bindings/base.dart';
 import '../config/utils/helper.dart';
 
 

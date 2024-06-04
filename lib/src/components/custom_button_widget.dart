@@ -10,11 +10,14 @@ class CustomButtonWidget extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
   final bool isBorder;
+  final bool isLoading;
 
   const CustomButtonWidget({
     super.key,
+    this.isLoading = false,
     required this.width,
-    required this.height,this.titleColor=Colors.white,
+    required this.height,
+    this.titleColor = Colors.white,
     required this.color,
     required this.title,
     this.isBorder = false,
@@ -36,12 +39,16 @@ class CustomButtonWidget extends StatelessWidget {
               BorderRadius.circular(8.0), // Add rounded corners if desired
         ),
         child: Center(
-          child: KText(
-            text: title,
-            fontColor:titleColor,
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          ),
+          child: isLoading
+              ? const CircularProgressIndicator(
+                  color: Colors.white,
+                )
+              : KText(
+                  text: title,
+                  fontColor: titleColor,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                ),
         ),
       ),
     );

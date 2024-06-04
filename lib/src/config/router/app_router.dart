@@ -6,8 +6,8 @@ import '../../pages/splash_page.dart';
 
 class AppRouter {
   static String splashPage = '/';
-  static String loginPage = 'loginPage';
-  static String signUpPage = 'signUpPage';
+  static String loginPage = '/loginPage';
+  static String signUpPage = '/signUpPage';
 
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => const SplashPage()),

@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:we_devs_task/src/config/router/app_router.dart';
 
 import '../components/custom_button_widget.dart';
 import '../components/custom_logo_button_widget.dart';
@@ -77,9 +76,7 @@ class LoginPage extends StatelessWidget {
                   color: const Color(0xffF75F55),
                   height: mediaQueryHeight(62),
                   title: 'Login',
-                  onTap: () {
-                
-                  },
+                  onTap: () {},
                   width: Get.width,
                 ),
                 SpaceVerticalWidget(height: 20),
@@ -100,7 +97,7 @@ class LoginPage extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
-                   
+                    Get.toNamed(AppRouter.signUpPage);
                   },
                   child: KText(
                     text: ' Create New Account',
