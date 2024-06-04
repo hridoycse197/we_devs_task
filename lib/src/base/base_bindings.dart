@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:we_devs_task/src/services/isar_services.dart';
 
-import '../../controllers/config_controller.dart';
+import '../controllers/config_controller.dart';
+import '../services/isar_services.dart';
 
 class BaseBindings extends Bindings {
   @override
@@ -9,8 +9,9 @@ class BaseBindings extends Bindings {
     Get.lazyPut(
       () => IsarService(),
     );
+   
     Get.lazyPut(
       () => ConfigController(),
-    );
+    ); 
   }
 }
