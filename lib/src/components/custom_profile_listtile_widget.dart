@@ -60,8 +60,7 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                            height: mediaQueryHeight(52),
-                            width: Get.width,
+                             
                             isBorder: true,
                             hint: 'Your Email',
                             textEditingController: textEditingController,
@@ -76,8 +75,7 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                            height: mediaQueryHeight(52),
-                            width: Get.width,
+                             
                             isBorder: true,
                             hint: 'Your Full name',
                             textEditingController: textEditingController,
@@ -92,8 +90,7 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                            height: mediaQueryHeight(52),
-                            width: Get.width,
+                             
                             isBorder: true,
                             hint: 'Your Address',
                             textEditingController: textEditingController,
@@ -108,8 +105,7 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                            height: mediaQueryHeight(52),
-                            width: Get.width,
+                             
                             isBorder: true,
                             hint: 'Unit 512',
                             textEditingController: textEditingController,
@@ -125,8 +121,7 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                            height: mediaQueryHeight(52),
-                            width: mediaQueryWidth(86),
+                              
                             isBorder: true,
                             hint: '25631',
                             textEditingController: textEditingController,
@@ -171,8 +166,7 @@ class CustomListTile extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                               CustomTextFormField(
-                                height: mediaQueryHeight(52),
-                                width: Get.width,
+                            
                                 isBorder: true,
                                 hint: 'Old Password here...',
                                 textEditingController: textEditingController,
@@ -187,8 +181,7 @@ class CustomListTile extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                               CustomTextFormField(
-                                height: mediaQueryHeight(52),
-                                width: Get.width,
+                             
                                 isBorder: true,
                                 hint: 'New password here...',
                                 textEditingController: textEditingController,
@@ -203,8 +196,7 @@ class CustomListTile extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                               CustomTextFormField(
-                                height: mediaQueryHeight(52),
-                                width: Get.width,
+                              
                                 isBorder: true,
                                 hint: 'Confirm new Password here',
                                 textEditingController: textEditingController,

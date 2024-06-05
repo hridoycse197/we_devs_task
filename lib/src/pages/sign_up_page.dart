@@ -37,7 +37,7 @@ class SignUpPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ProfileIconWidget(
-                    size: mediaQueryWidth(100),
+                    size: mediaQueryWidth(80),
                     ontap: () {},
                   ),
                   SpaceVerticalWidget(height: 35),
@@ -46,8 +46,6 @@ class SignUpPage extends StatelessWidget {
                       Base.authController.userName(p0);
                     },
                     inputType: InputType.username,
-                    height: mediaQueryHeight(52),
-                    width: Get.width,
                     hint: 'User Name',
                     isPrefix: true,
                     prefixIcon: Icons.person_outline,
@@ -60,8 +58,6 @@ class SignUpPage extends StatelessWidget {
                       Base.authController.email(p0);
                     },
                     inputType: InputType.email,
-                    height: mediaQueryHeight(52),
-                    width: Get.width,
                     hint: 'Email',
                     isPrefix: true,
                     prefixIcon: Icons.email_outlined,
@@ -75,8 +71,6 @@ class SignUpPage extends StatelessWidget {
                       Base.authController.passWord(p0);
                     },
                     hint: 'Password',
-                    height: mediaQueryHeight(52),
-                    width: Get.width,
                     isPrefix: true,
                     prefixIcon: Icons.lock_outline,
                     isSuffix: false,
@@ -85,8 +79,7 @@ class SignUpPage extends StatelessWidget {
                   SpaceVerticalWidget(height: 10),
                   CustomTextFormField(
                     hint: 'Confirm Password',
-                    height: mediaQueryHeight(52),
-                    width: Get.width,
+                    inputType: InputType.confirmPassword,
                     isPrefix: true,
                     prefixIcon: Icons.lock_outline,
                     onChanged: (p0) {
@@ -98,13 +91,21 @@ class SignUpPage extends StatelessWidget {
                   SpaceVerticalWidget(height: 40),
                   Obx(
                     () => CustomButtonWidget(
-                      color: const Color(0xffF75F55),
+                      color: Base.authController.isSignupButtonValid()
+                          ? const Color(0xffF75F55)
+                          : const Color.fromARGB(255, 161, 161, 161),
                       height: mediaQueryHeight(62),
                       title: 'Sign Up',
                       isLoading: Base.authController.isLoading.value,
-                      onTap: () async {
-                        await Base.authController.signUp();
-                      },
+                      onTap: Base.authController.isSignupButtonValid()
+                          ? () async {
+                              if (formkey.currentState!.validate()) {
+                                await Base.authController.signUp();
+                              }
+                            }
+                          : () {
+                              Base.authController.isSignupButtonValid();
+                            },
                       width: Get.width,
                     ),
                   ),

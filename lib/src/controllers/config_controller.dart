@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 
 import '../base/base.dart';
@@ -26,6 +25,8 @@ class ConfigController extends GetxController {
     kLog(settings);
     if (settings == null || settings.token == null) {
       Get.offAllNamed(AppRouter.loginPage);
+    } else {
+      Get.offAllNamed(AppRouter.signUpPage);
     }
 
     // if (settings != null && settings.token != null) {

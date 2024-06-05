@@ -41,6 +41,7 @@ dependencies:
   isar_flutter_libs:
   isar:
   dio:
+  image_picker:
 
 flutter_native_splash:
   android: true

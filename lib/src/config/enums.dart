@@ -1,1 +1,1 @@
-enum InputType { email, password, username }
+enum InputType { email, password,confirmPassword, username }

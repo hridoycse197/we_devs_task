@@ -1,4 +1,3 @@
-
 import 'package:isar/isar.dart';
 
 import '../config/utils/helper.dart';
@@ -10,11 +9,12 @@ class SettingsModel {
   String? id;
 
   Id get isarId => hashId(id!);
-  String ?token;
-  String ?username;
+  String? token;
+  String? username;
+  List<int>? image;
 
   SettingsModel({
     this.username,
-    this.token,
+    this.token,this.image
   });
 }

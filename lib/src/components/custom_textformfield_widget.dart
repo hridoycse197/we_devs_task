@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:we_devs_task/src/base/base.dart';
 import 'package:we_devs_task/src/config/enums.dart';
 
 import '../config/utils/helper.dart';
@@ -12,15 +13,13 @@ class CustomTextFormField extends StatelessWidget {
   bool isSuffix;
   IconData? suffixIcon;
   bool isBorder;
-  double height;
+
   Function(String)? onChanged;
   InputType? inputType;
-  double width;
+
   CustomTextFormField(
       {super.key,
       this.isBorder = true,
-      required this.height,
-      required this.width,
       required this.hint,
       this.onChanged,
       this.inputType,
@@ -33,9 +32,9 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
-      width: width,
+      alignment: Alignment.center,
       decoration: const BoxDecoration(
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Color(0x1A395AB8),
@@ -47,14 +46,41 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         onChanged: onChanged,
         autovalidateMode: inputType != null
-            ? AutovalidateMode.always
+            ? AutovalidateMode.onUserInteraction
             : AutovalidateMode.disabled,
         validator: (value) {
           String? res;
-          // ... (your existing validation logic)
+          switch (inputType) {
+            case InputType.username:
+              res = value != '' ? null : "Enter Username";
+              kLog(inputType);
+              kLog(value == '');
+              break;
+            case InputType.email:
+              res = value != '' &&
+                      RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                          .hasMatch(value!)
+                  ? null
+                  : "Enter Valid Email";
+            case InputType.password:
+              res = value != '' && value!.length >= 4
+                  ? null
+                  : "Password should be atleast 4 characters";
+            case InputType.confirmPassword:
+              res = value != '' &&
+                      value!.length >= 4 &&
+                      value == Base.authController.passWord.value
+                  ? null
+                  : "Not matched";
+            default:
+              res = null;
+          }
           return res;
         },
         decoration: InputDecoration(
+          helperText: '',
+          isCollapsed: true,
+          errorBorder: InputBorder.none, focusedErrorBorder: InputBorder.none,
           border: isBorder
               ? const OutlineInputBorder(
                   borderSide: BorderSide(
