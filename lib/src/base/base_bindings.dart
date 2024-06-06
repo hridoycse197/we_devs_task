@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:we_devs_task/src/controllers/product_controller.dart';
 
 import '../controllers/auth_controller.dart';
 import '../controllers/config_controller.dart';
@@ -16,6 +17,9 @@ class BaseBindings extends Bindings {
     );
     Get.lazyPut(
       () => AuthController(),
+    );
+    Get.lazyPut(
+      () => ProductController(),
     );
   }
 }

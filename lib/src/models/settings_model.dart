@@ -11,10 +11,8 @@ class SettingsModel {
   Id get isarId => hashId(id!);
   String? token;
   String? username;
+  String? email;
   List<int>? image;
 
-  SettingsModel({
-    this.username,
-    this.token,this.image
-  });
+  SettingsModel({this.username, this.token, this.image, this.email});
 }

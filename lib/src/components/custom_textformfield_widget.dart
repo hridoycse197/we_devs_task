@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   IconData? prefixIcon;
   bool isSuffix;
   IconData? suffixIcon;
+  bool isSuffixOntap;
   bool isBorder;
 
   Function(String)? onChanged;
@@ -21,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
       {super.key,
       this.isBorder = true,
       required this.hint,
+      this.isSuffixOntap = false,
       this.onChanged,
       this.inputType,
       required this.textEditingController,
@@ -45,6 +47,8 @@ class CustomTextFormField extends StatelessWidget {
       ),
       child: TextFormField(
         onChanged: onChanged,
+        obscureText:
+            isSuffixOntap ? Base.authController.isVisible.value : false,
         autovalidateMode: inputType != null
             ? AutovalidateMode.onUserInteraction
             : AutovalidateMode.disabled,
@@ -98,9 +102,17 @@ class CustomTextFormField extends StatelessWidget {
                 )
               : const SizedBox.shrink(),
           suffixIcon: isSuffix
-              ? Icon(
-                  suffixIcon,
-                  color: const Color(0xFF7C8592),
+              ? GestureDetector(
+                  onTap: !isSuffixOntap
+                      ? () {}
+                      : () {
+                          Base.authController
+                              .isVisible(!Base.authController.isVisible.value);
+                        },
+                  child: Icon(
+                    suffixIcon,
+                    color: const Color(0xFF7C8592),
+                  ),
                 )
               : const SizedBox.shrink(),
           hintText: hint,

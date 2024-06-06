@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:we_devs_task/src/models/product_model.dart';
 
 import '../config/utils/helper.dart';
 import '../models/settings_model.dart';
@@ -8,7 +9,7 @@ import '../models/settings_model.dart';
 class IsarService extends GetxService {
   late Isar isar;
 
-  final schemaList = [SettingsModelSchema];
+  final schemaList = [SettingsModelSchema, ProductModelSchema];
 
   @override
   void onInit() async {

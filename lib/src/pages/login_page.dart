@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                       )),
                   SpaceVerticalWidget(height: 55),
                   CustomTextFormField(
-                    hint: 'UserName',
+                    hint: 'Email',
                     inputType: InputType.username,
                     onChanged: (p0) {
                       Base.authController.userName(p0);
@@ -66,7 +66,10 @@ class LoginPage extends StatelessWidget {
                     onChanged: (p0) {
                       Base.authController.passWord(p0);
                     },
-                    suffixIcon: Icons.visibility_off,
+                    suffixIcon: Base.authController.isVisible.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    isSuffixOntap: true,
                     textEditingController: Base.authController.passwordC.value,
                   ),
                   SpaceVerticalWidget(height: 18),

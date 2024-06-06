@@ -17,23 +17,28 @@ const SettingsModelSchema = CollectionSchema(
   name: r'SettingsModel',
   id: 4013777327486952906,
   properties: {
-    r'id': PropertySchema(
+    r'email': PropertySchema(
       id: 0,
+      name: r'email',
+      type: IsarType.string,
+    ),
+    r'id': PropertySchema(
+      id: 1,
       name: r'id',
       type: IsarType.string,
     ),
     r'image': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'image',
       type: IsarType.longList,
     ),
     r'token': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'token',
       type: IsarType.string,
     ),
     r'username': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'username',
       type: IsarType.string,
     )
@@ -58,6 +63,12 @@ int _settingsModelEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  {
+    final value = object.email;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.id;
     if (value != null) {
@@ -91,10 +102,11 @@ void _settingsModelSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.id);
-  writer.writeLongList(offsets[1], object.image);
-  writer.writeString(offsets[2], object.token);
-  writer.writeString(offsets[3], object.username);
+  writer.writeString(offsets[0], object.email);
+  writer.writeString(offsets[1], object.id);
+  writer.writeLongList(offsets[2], object.image);
+  writer.writeString(offsets[3], object.token);
+  writer.writeString(offsets[4], object.username);
 }
 
 SettingsModel _settingsModelDeserialize(
@@ -104,11 +116,12 @@ SettingsModel _settingsModelDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = SettingsModel(
-    image: reader.readLongList(offsets[1]),
-    token: reader.readStringOrNull(offsets[2]),
-    username: reader.readStringOrNull(offsets[3]),
+    email: reader.readStringOrNull(offsets[0]),
+    image: reader.readLongList(offsets[2]),
+    token: reader.readStringOrNull(offsets[3]),
+    username: reader.readStringOrNull(offsets[4]),
   );
-  object.id = reader.readStringOrNull(offsets[0]);
+  object.id = reader.readStringOrNull(offsets[1]);
   return object;
 }
 
@@ -122,10 +135,12 @@ P _settingsModelDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readLongList(offset)) as P;
-    case 2:
       return (reader.readStringOrNull(offset)) as P;
+    case 2:
+      return (reader.readLongList(offset)) as P;
     case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -225,6 +240,160 @@ extension SettingsModelQueryWhere
 
 extension SettingsModelQueryFilter
     on QueryBuilder<SettingsModel, SettingsModel, QFilterCondition> {
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'email',
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'email',
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'email',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'email',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'email',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'email',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'email',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'email',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'email',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'email',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'email',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition>
+      emailIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'email',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<SettingsModel, SettingsModel, QAfterFilterCondition> idIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -912,6 +1081,18 @@ extension SettingsModelQueryLinks
 
 extension SettingsModelQuerySortBy
     on QueryBuilder<SettingsModel, SettingsModel, QSortBy> {
+  QueryBuilder<SettingsModel, SettingsModel, QAfterSortBy> sortByEmail() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'email', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterSortBy> sortByEmailDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'email', Sort.desc);
+    });
+  }
+
   QueryBuilder<SettingsModel, SettingsModel, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -952,6 +1133,18 @@ extension SettingsModelQuerySortBy
 
 extension SettingsModelQuerySortThenBy
     on QueryBuilder<SettingsModel, SettingsModel, QSortThenBy> {
+  QueryBuilder<SettingsModel, SettingsModel, QAfterSortBy> thenByEmail() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'email', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SettingsModel, SettingsModel, QAfterSortBy> thenByEmailDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'email', Sort.desc);
+    });
+  }
+
   QueryBuilder<SettingsModel, SettingsModel, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1004,6 +1197,13 @@ extension SettingsModelQuerySortThenBy
 
 extension SettingsModelQueryWhereDistinct
     on QueryBuilder<SettingsModel, SettingsModel, QDistinct> {
+  QueryBuilder<SettingsModel, SettingsModel, QDistinct> distinctByEmail(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'email', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<SettingsModel, SettingsModel, QDistinct> distinctById(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1037,6 +1237,12 @@ extension SettingsModelQueryProperty
   QueryBuilder<SettingsModel, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
+    });
+  }
+
+  QueryBuilder<SettingsModel, String?, QQueryOperations> emailProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'email');
     });
   }
 
