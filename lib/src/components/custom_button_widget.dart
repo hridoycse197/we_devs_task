@@ -7,20 +7,20 @@ class CustomButtonWidget extends StatelessWidget {
   final double height;
   final Color color;
   final Color titleColor;
+  final Color borderColor;
   final String title;
   final VoidCallback onTap;
-  final bool isBorder;
   final bool isLoading;
 
   const CustomButtonWidget({
     super.key,
     this.isLoading = false,
     required this.width,
+    this.borderColor = Colors.transparent,
     required this.height,
     this.titleColor = Colors.white,
     required this.color,
     required this.title,
-    this.isBorder = false,
     required this.onTap,
   });
 
@@ -33,8 +33,8 @@ class CustomButtonWidget extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: color,
-          border:
-              Border.all(color: isBorder ? Colors.black : Colors.transparent),
+          border: Border.all(
+              color: borderColor ),
           borderRadius:
               BorderRadius.circular(8.0), // Add rounded corners if desired
         ),

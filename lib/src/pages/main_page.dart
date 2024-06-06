@@ -33,7 +33,7 @@ class MainPage extends StatelessWidget {
           child: FloatingActionButton(
             backgroundColor: Colors.transparent,
             onPressed: () {
-              Base.productController.getAllProduct();
+              Base.productController.focusNode.value!.requestFocus();
               Base.configController.currentIndex(0);
             },
             child: const Icon(

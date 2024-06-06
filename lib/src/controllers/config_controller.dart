@@ -26,7 +26,7 @@ class ConfigController extends GetxController {
     if (settings == null || settings.token == null) {
       Get.offAllNamed(AppRouter.loginPage);
     } else {
-      Get.offAllNamed(AppRouter.signUpPage);
+      Get.offAllNamed(AppRouter.mainPage);
     }
 
     // if (settings != null && settings.token != null) {

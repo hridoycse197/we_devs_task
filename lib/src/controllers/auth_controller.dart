@@ -103,10 +103,15 @@ class AuthController extends GetxController {
           settings.token = response.data["token"];
           await Base.isarService.put<SettingsModel>(settings);
         } else {
-          final model = SettingsModel(token: response.data["token"]);
+          final model = SettingsModel(
+              token: response.data["token"],
+              email: response.data["user_email"],
+              username: response.data["user_nicename"]);
           model.id = IsarKeys.settings;
+
+          await Base.isarService.put<SettingsModel>(model);
         }
-        Get.offAllNamed(AppRouter.splashPage);
+        Get.offAllNamed(AppRouter.mainPage);
         SnackbarHelper.successSnackbar("Success", "Login Successfully");
       } else {
         SnackbarHelper.errorSnackbar("Error", response.data["message"]);

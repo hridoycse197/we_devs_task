@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 import '../base/base.dart';
 import '../config/utils/helper.dart';
@@ -60,7 +58,6 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                             
                             isBorder: true,
                             hint: 'Your Email',
                             textEditingController: textEditingController,
@@ -75,7 +72,6 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                             
                             isBorder: true,
                             hint: 'Your Full name',
                             textEditingController: textEditingController,
@@ -90,7 +86,6 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                             
                             isBorder: true,
                             hint: 'Your Address',
                             textEditingController: textEditingController,
@@ -105,7 +100,6 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                             
                             isBorder: true,
                             hint: 'Unit 512',
                             textEditingController: textEditingController,
@@ -121,7 +115,6 @@ class CustomListTile extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           CustomTextFormField(
-                              
                             isBorder: true,
                             hint: '25631',
                             textEditingController: textEditingController,
@@ -133,7 +126,7 @@ class CustomListTile extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomButtonWidget(
-                                  isBorder: true,
+                                  borderColor: Colors.black,
                                   titleColor: Colors.black,
                                   width: mediaQueryWidth(135),
                                   height: mediaQueryHeight(50),
@@ -166,7 +159,6 @@ class CustomListTile extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                               CustomTextFormField(
-                            
                                 isBorder: true,
                                 hint: 'Old Password here...',
                                 textEditingController: textEditingController,
@@ -181,7 +173,6 @@ class CustomListTile extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                               CustomTextFormField(
-                             
                                 isBorder: true,
                                 hint: 'New password here...',
                                 textEditingController: textEditingController,
@@ -196,7 +187,6 @@ class CustomListTile extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                               CustomTextFormField(
-                              
                                 isBorder: true,
                                 hint: 'Confirm new Password here',
                                 textEditingController: textEditingController,
@@ -209,7 +199,7 @@ class CustomListTile extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CustomButtonWidget(
-                                      isBorder: true,
+                                      borderColor: Colors.black,
                                       titleColor: Colors.black,
                                       width: mediaQueryWidth(135),
                                       height: mediaQueryHeight(50),
