@@ -15,7 +15,7 @@ import '../components/space_vertical_widget.dart';
 import '../config/utils/helper.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ class LoginPage extends StatelessWidget {
       () => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
         ),
         body: SafeArea(
@@ -46,7 +47,7 @@ class LoginPage extends StatelessWidget {
                       )),
                   SpaceVerticalWidget(height: 55),
                   CustomTextFormField(
-                    hint: 'Email',
+                    hint: 'Username',
                     inputType: InputType.username,
                     onChanged: (p0) {
                       Base.authController.userName(p0);
@@ -54,7 +55,7 @@ class LoginPage extends StatelessWidget {
                     isPrefix: true,
                     prefixIcon: Icons.email_outlined,
                     isSuffix: false,
-                    textEditingController: Base.authController.emailC.value,
+                    textEditingController: Base.authController.userC.value,
                   ),
                   SpaceVerticalWidget(height: 20),
                   CustomTextFormField(

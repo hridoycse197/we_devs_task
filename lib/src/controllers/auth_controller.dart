@@ -9,6 +9,7 @@ import 'package:we_devs_task/src/base/base.dart';
 import 'package:we_devs_task/src/config/router/app_router.dart';
 import 'package:we_devs_task/src/config/utils/isar_keys.dart';
 import 'package:we_devs_task/src/helpers/snackbar_helper.dart';
+import 'package:we_devs_task/src/models/profile_model.dart';
 import 'package:we_devs_task/src/models/settings_model.dart';
 import 'package:we_devs_task/src/repositories/auth_repository.dart';
 
@@ -17,15 +18,24 @@ import '../config/utils/helper.dart';
 class AuthController extends GetxController {
   final userName = RxString('');
   final passWord = RxString('');
-  final res = RxString('');
+  final fullname = RxString('');
+  final address = RxString('');
+  final flat = RxString('');
+  final zip = RxString('');
   final emailC = Rx<TextEditingController>(TextEditingController());
+  final userC = Rx<TextEditingController>(TextEditingController());
+  final fullnameC = Rx<TextEditingController>(TextEditingController());
+  final addressC = Rx<TextEditingController>(TextEditingController());
+  final flatC = Rx<TextEditingController>(TextEditingController());
+  final zipC = Rx<TextEditingController>(TextEditingController());
   final passwordC = Rx<TextEditingController>(TextEditingController());
 
   final pickedImage = Rx<Uint8List?>(null);
   final settingsData = Rx<SettingsModel?>(null);
+  final profileData = Rx<ProfileModel?>(null);
   final email = RxString('');
   final isLoading = RxBool(false);
-  final isVisible = RxBool(false);
+  final isVisible = RxBool(true);
   final confirmPassword = RxString('');
 
   @override
@@ -82,6 +92,38 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> logout() async {
+    final settings =
+        await Base.isarService.get<SettingsModel>(IsarKeys.settings);
+    settings!.token = null;
+    await Base.isarService.put<SettingsModel>(settings);
+
+    Get.offAllNamed(AppRouter.loginPage);
+    updateLoginForm();
+  }
+
+  Future<void> updateLoginForm() async {
+    final settings =
+        await Base.isarService.get<SettingsModel>(IsarKeys.settings);
+    Base.authController.userC.value.text = settings!.username!;
+    Base.authController.userName(settings.username!);
+  }
+
+  Future<void> updateProfileForm() async {
+    final profile = await Base.isarService.get<ProfileModel>(IsarKeys.profile);
+    profileData(profile);
+    Base.authController.emailC.value.text = profile!.userEmail!;
+    Base.authController.email(profile.userEmail!);
+    Base.authController.fullnameC.value.text = profile.userDisplayName!;
+    Base.authController.fullname(profile.userDisplayName!);
+    Base.authController.addressC.value.text = profile.address ?? "";
+    Base.authController.address(profile.address ?? "");
+    Base.authController.flatC.value.text = profile.flat ?? "";
+    Base.authController.flat(profile.flat ?? "");
+    Base.authController.zipC.value.text = profile.zipCode ?? "";
+    Base.authController.zip(profile.zipCode ?? "");
+  }
+
   Future<void> logIn() async {
     try {
       isLoading(true);
@@ -111,6 +153,12 @@ class AuthController extends GetxController {
 
           await Base.isarService.put<SettingsModel>(model);
         }
+
+        final profile = ProfileModel.fromJson(response.data);
+
+        profile.id = IsarKeys.profile;
+        await Base.isarService.put<ProfileModel>(profile);
+        updateProfileForm();
         Get.offAllNamed(AppRouter.mainPage);
         SnackbarHelper.successSnackbar("Success", "Login Successfully");
       } else {
@@ -164,5 +212,30 @@ class AuthController extends GetxController {
   bool isLoginButtonValid() {
     return userName.value != '' &&
         (passWord.value != '' && passWord.value.length >= 4);
+  }
+
+  Future<void> updateProfile() async {
+    final profile = await Base.isarService.get<ProfileModel>(IsarKeys.profile);
+    profile!.address = address.value;
+    profile.flat = flat.value;
+    profile.fullname = fullname.value;
+    profile.zipCode = zip.value;
+    await Base.isarService.put<ProfileModel>(profile);
+
+    flatC.value.clear();
+    addressC.value.clear();
+    fullnameC.value.clear();
+    zipC.value.clear();
+    Base.configController.selectedTab(-1);
+    SnackbarHelper.successSnackbar(
+        "Profile Saved !", " Profile saved successfully");
+  }
+
+  bool isProfileSaveButtonValid() {
+    return email.value != '' &&
+        (fullname.value != '' &&
+            address.value != '' &&
+            flat.value != '' &&
+            zip.value != '');
   }
 }

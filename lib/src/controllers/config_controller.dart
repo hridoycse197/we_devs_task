@@ -24,8 +24,10 @@ class ConfigController extends GetxController {
         await Base.isarService.get<SettingsModel>(IsarKeys.settings);
     kLog(settings);
     if (settings == null || settings.token == null) {
+      await Base.authController.updateLoginForm();
       Get.offAllNamed(AppRouter.loginPage);
     } else {
+      await Base.authController.updateProfileForm();
       Get.offAllNamed(AppRouter.mainPage);
     }
 

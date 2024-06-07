@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:we_devs_task/src/helpers/dialog_helper.dart';
+import 'package:we_devs_task/src/helpers/snackbar_helper.dart';
 
 import '../base/base.dart';
 import '../config/utils/helper.dart';
@@ -12,10 +14,11 @@ class CustomListTile extends StatelessWidget {
   IconData icon;
   String title;
   VoidCallback onTap;
+  bool isTrailIcon;
   int itemNumber;
-  TextEditingController textEditingController = TextEditingController();
   CustomListTile(
       {super.key,
+      this.isTrailIcon = true,
       required this.itemNumber,
       required this.icon,
       required this.onTap,
@@ -35,12 +38,14 @@ class CustomListTile extends StatelessWidget {
               fontSize: mediaQueryWidth(18),
               fontWeight: FontWeight.w400,
             ),
-            trailing: Icon(
-              itemNumber == Base.configController.selectedTab.value
-                  ? Icons.keyboard_arrow_down
-                  : Icons.arrow_forward_ios,
-              color: const Color(0xff899AA2),
-            ),
+            trailing: isTrailIcon
+                ? Icon(
+                    itemNumber == Base.configController.selectedTab.value
+                        ? Icons.keyboard_arrow_down
+                        : Icons.arrow_forward_ios,
+                    color: const Color(0xff899AA2),
+                  )
+                : const SizedBox.shrink(),
           ),
           Visibility(
               visible: Base.configController.selectedTab.value == itemNumber,
@@ -60,8 +65,12 @@ class CustomListTile extends StatelessWidget {
                           CustomTextFormField(
                             isBorder: true,
                             hint: 'Your Email',
-                            textEditingController: textEditingController,
                             isPrefix: false,
+                            onChanged: (p0) {
+                              Base.authController.email(p0);
+                            },
+                            textEditingController:
+                                Base.authController.emailC.value,
                             isSuffix: false,
                           ),
                           SpaceVerticalWidget(height: 30),
@@ -74,7 +83,11 @@ class CustomListTile extends StatelessWidget {
                           CustomTextFormField(
                             isBorder: true,
                             hint: 'Your Full name',
-                            textEditingController: textEditingController,
+                            onChanged: (p0) {
+                              Base.authController.fullname(p0);
+                            },
+                            textEditingController:
+                                Base.authController.fullnameC.value,
                             isPrefix: false,
                             isSuffix: false,
                           ),
@@ -88,7 +101,11 @@ class CustomListTile extends StatelessWidget {
                           CustomTextFormField(
                             isBorder: true,
                             hint: 'Your Address',
-                            textEditingController: textEditingController,
+                            onChanged: (p0) {
+                              Base.authController.address(p0);
+                            },
+                            textEditingController:
+                                Base.authController.addressC.value,
                             isPrefix: false,
                             isSuffix: false,
                           ),
@@ -102,7 +119,11 @@ class CustomListTile extends StatelessWidget {
                           CustomTextFormField(
                             isBorder: true,
                             hint: 'Unit 512',
-                            textEditingController: textEditingController,
+                            onChanged: (p0) {
+                              Base.authController.flat(p0);
+                            },
+                            textEditingController:
+                                Base.authController.flatC.value,
                             isPrefix: false,
                             isSuffix: false,
                           ),
@@ -117,7 +138,11 @@ class CustomListTile extends StatelessWidget {
                           CustomTextFormField(
                             isBorder: true,
                             hint: '25631',
-                            textEditingController: textEditingController,
+                            onChanged: (p0) {
+                              Base.authController.zip(p0);
+                            },
+                            textEditingController:
+                                Base.authController.zipC.value,
                             isPrefix: false,
                             isSuffix: false,
                           ),
@@ -132,13 +157,28 @@ class CustomListTile extends StatelessWidget {
                                   height: mediaQueryHeight(50),
                                   color: Colors.white,
                                   title: 'Cancel',
-                                  onTap: () {}),
+                                  onTap: () {
+                                    Base.configController.selectedTab(-1);
+                                  }),
                               CustomButtonWidget(
                                   width: mediaQueryWidth(135),
                                   height: mediaQueryHeight(50),
-                                  color: Colors.green,
+                                  color: Base.authController
+                                          .isProfileSaveButtonValid()
+                                      ? Colors.green
+                                      : Colors.grey,
                                   title: 'Save',
-                                  onTap: () {})
+                                  onTap: Base.authController
+                                          .isProfileSaveButtonValid()
+                                      ? () async {
+                                          await Base.authController
+                                              .updateProfile();
+                                        }
+                                      : () {
+                                          SnackbarHelper.errorSnackbar(
+                                              "Data empty",
+                                              "Please fill all data");
+                                        })
                             ],
                           ),
                           SpaceVerticalWidget(height: 30),
@@ -161,7 +201,11 @@ class CustomListTile extends StatelessWidget {
                               CustomTextFormField(
                                 isBorder: true,
                                 hint: 'Old Password here...',
-                                textEditingController: textEditingController,
+                                onChanged: (p0) {
+                                  Base.authController.passWord(p0);
+                                },
+                                textEditingController:
+                                    Base.authController.passwordC.value,
                                 isPrefix: false,
                                 isSuffix: false,
                               ),
@@ -175,7 +219,11 @@ class CustomListTile extends StatelessWidget {
                               CustomTextFormField(
                                 isBorder: true,
                                 hint: 'New password here...',
-                                textEditingController: textEditingController,
+                                onChanged: (p0) {
+                                  Base.authController.email(p0);
+                                },
+                                textEditingController:
+                                    Base.authController.passwordC.value,
                                 isPrefix: false,
                                 isSuffix: false,
                               ),
@@ -189,7 +237,11 @@ class CustomListTile extends StatelessWidget {
                               CustomTextFormField(
                                 isBorder: true,
                                 hint: 'Confirm new Password here',
-                                textEditingController: textEditingController,
+                                onChanged: (p0) {
+                                  Base.authController.passWord(p0);
+                                },
+                                textEditingController:
+                                    Base.authController.passwordC.value,
                                 isPrefix: false,
                                 isSuffix: false,
                               ),
@@ -205,13 +257,17 @@ class CustomListTile extends StatelessWidget {
                                       height: mediaQueryHeight(50),
                                       color: Colors.white,
                                       title: 'Cancel',
-                                      onTap: () {}),
+                                      onTap: () {
+                                        Base.configController.selectedTab(-1);
+                                      }),
                                   CustomButtonWidget(
                                       width: mediaQueryWidth(135),
                                       height: mediaQueryHeight(50),
                                       color: Colors.green,
                                       title: 'Save',
-                                      onTap: () {})
+                                      onTap: () {
+                                        kLog('value');
+                                      })
                                 ],
                               ),
                               SpaceVerticalWidget(height: 30),
@@ -234,7 +290,7 @@ class CustomListTile extends StatelessWidget {
                                 text: 'Wishlist is Empty!',
                                 fontSize: mediaQueryWidth(22),
                               )),
-                            ))
+                            )),
         ],
       ),
     );

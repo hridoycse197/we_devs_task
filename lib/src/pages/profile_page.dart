@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +7,6 @@ import '../components/custom_text_widget.dart';
 import '../components/image_avatar_profile_widget.dart';
 import '../components/space_vertical_widget.dart';
 import '../config/utils/helper.dart';
-
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
@@ -34,12 +32,13 @@ class ProfilePage extends StatelessWidget {
                 )),
             SpaceVerticalWidget(height: 35),
             KText(
-              text: 'John Smith',
+              text:
+                  Base.authController.profileData.value!.userDisplayName ?? "",
               fontSize: mediaQueryWidth(24),
               fontWeight: FontWeight.w900,
             ),
             KText(
-              text: 'john@email.com',
+              text: Base.authController.profileData.value!.fullname ?? "N/A",
               fontColor: const Color(0xff535353),
               fontSize: mediaQueryWidth(18),
               fontWeight: FontWeight.w400,
@@ -67,6 +66,8 @@ class ProfilePage extends StatelessWidget {
                           Base.configController.selectedTab.value == 0
                               ? Base.configController.selectedTab(-1)
                               : Base.configController.selectedTab(0);
+
+                          Base.authController.updateProfileForm();
                         },
                         icon: Icons.person_outline,
                         title: 'Account',
@@ -118,6 +119,21 @@ class ProfilePage extends StatelessWidget {
                         },
                         icon: Icons.favorite_border_outlined,
                         title: 'Wishlist (0)',
+                      ),
+                      Divider(
+                        height: 1.0,
+                        color: const Color(0xffA0A9BD),
+                        endIndent: mediaQueryWidth(25),
+                        indent: mediaQueryWidth(20),
+                      ),
+                      CustomListTile(
+                        itemNumber: 4,
+                        isTrailIcon: false,
+                        onTap: () async {
+                          await Base.authController.logout();
+                        },
+                        icon: Icons.logout,
+                        title: 'Logout',
                       ),
                     ],
                   ),
