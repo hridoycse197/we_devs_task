@@ -33,9 +33,18 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 20.0,
-      shadowColor: Color(0x1A395AB8),
+    return Container(
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x1A395AB8),
+            offset: Offset(0, 1),
+            blurRadius: 2,
+          ),
+        ],
+      ),
       child: TextFormField(
         initialValue: textEditingController!.text,
         onChanged: onChanged,
@@ -74,10 +83,9 @@ class CustomTextFormField extends StatelessWidget {
           return res;
         },
         decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 0),
           helperText: '',
-          isCollapsed: false,
+          isCollapsed: true,
           errorBorder: InputBorder.none, focusedErrorBorder: InputBorder.none,
           border: isBorder
               ? const OutlineInputBorder(
@@ -124,7 +132,7 @@ class CustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Colors.red,
           // Add this line to display the error message
         ),
       ),

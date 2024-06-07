@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:we_devs_task/src/base/base.dart';
 
 import '../config/utils/helper.dart';
 import 'custom_text_widget.dart';
@@ -17,9 +18,14 @@ class KappBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         isTrailingIcon
-            ? const Icon(
-                Icons.search,
-                color: Color(0xffb222455),
+            ? GestureDetector(
+                onTap: () {
+                  Base.productController.focusNode.value!.requestFocus();
+                },
+                child: const Icon(
+                  Icons.search,
+                  color: Color(0xffb222455),
+                ),
               )
             : const SizedBox.shrink(),
         SpaceHorizontalWidget(width: 10)
