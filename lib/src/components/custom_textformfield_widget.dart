@@ -131,8 +131,7 @@ class CustomTextFormField extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.transparent),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          filled: true,
-          fillColor: Colors.red,
+       
           // Add this line to display the error message
         ),
       ),

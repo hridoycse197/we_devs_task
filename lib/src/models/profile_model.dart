@@ -9,16 +9,19 @@ class ProfileModel {
   String? id;
   Id get isarId => hashId(id!);
   String? token;
+  @JsonKey(name: "user_email")
   String? userEmail;
+  @JsonKey(name: "user_nicename")
   String? userNicename;
+  @JsonKey(name: "user_display_name")
   String? userDisplayName;
-  @ignore
+
   String? fullname;
-  @ignore
+
   String? address;
-  @ignore
+
   String? flat;
-  @ignore
+
   String? zipCode;
 
   ProfileModel(

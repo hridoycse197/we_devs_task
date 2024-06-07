@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,9 +24,17 @@ class ProfilePage extends StatelessWidget {
           children: [
             SpaceVerticalWidget(height: 25),
             Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage('assets/images/profile_avatar.png'))),
+                        fit: BoxFit.fill,
+                        image: Base.authController.settingsData.value != null &&
+                                Base.authController.settingsData.value!.image!
+                                    .isNotEmpty
+                            ? MemoryImage(Uint8List.fromList(
+                                Base.authController.settingsData.value!.image!))
+                            : const AssetImage(
+                                'assets/images/profile_avatar.png'))),
                 width: mediaQueryWidth(120),
                 height: mediaQueryHeight(120),
                 child: CustomPaint(
@@ -32,13 +42,12 @@ class ProfilePage extends StatelessWidget {
                 )),
             SpaceVerticalWidget(height: 35),
             KText(
-              text:
-                  Base.authController.profileData.value!.userDisplayName ?? "",
+              text: Base.authController.profileData.value!.fullname ?? "",
               fontSize: mediaQueryWidth(24),
               fontWeight: FontWeight.w900,
             ),
             KText(
-              text: Base.authController.profileData.value!.fullname ?? "N/A",
+              text: Base.authController.profileData.value!.userEmail ?? "N/A",
               fontColor: const Color(0xff535353),
               fontSize: mediaQueryWidth(18),
               fontWeight: FontWeight.w400,
@@ -62,12 +71,12 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       CustomListTile(
                         itemNumber: 0,
-                        onTap: () {
+                        onTap: () async {
                           Base.configController.selectedTab.value == 0
                               ? Base.configController.selectedTab(-1)
                               : Base.configController.selectedTab(0);
 
-                          Base.authController.updateProfileForm();
+                          await Base.authController.updateProfileForm();
                         },
                         icon: Icons.person_outline,
                         title: 'Account',

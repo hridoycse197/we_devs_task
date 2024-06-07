@@ -105,17 +105,19 @@ class AuthController extends GetxController {
   Future<void> updateLoginForm() async {
     final settings =
         await Base.isarService.get<SettingsModel>(IsarKeys.settings);
-    Base.authController.userC.value.text = settings!.username!;
-    Base.authController.userName(settings.username!);
+    if (settings != null) {
+      Base.authController.userC.value.text = settings!.username!;
+      Base.authController.userName(settings.username!);
+    }
   }
 
   Future<void> updateProfileForm() async {
     final profile = await Base.isarService.get<ProfileModel>(IsarKeys.profile);
     profileData(profile);
-    Base.authController.emailC.value.text = profile!.userEmail!;
-    Base.authController.email(profile.userEmail!);
-    Base.authController.fullnameC.value.text = profile.userDisplayName!;
-    Base.authController.fullname(profile.userDisplayName!);
+    Base.authController.emailC.value.text = profile!.userEmail ?? "";
+    Base.authController.email(profile.userEmail ?? "");
+    Base.authController.fullnameC.value.text = profile.userDisplayName ?? "";
+    Base.authController.fullname(profile.userDisplayName ?? "");
     Base.authController.addressC.value.text = profile.address ?? "";
     Base.authController.address(profile.address ?? "");
     Base.authController.flatC.value.text = profile.flat ?? "";
@@ -222,10 +224,10 @@ class AuthController extends GetxController {
     profile.zipCode = zip.value;
     await Base.isarService.put<ProfileModel>(profile);
 
-    flatC.value.clear();
-    addressC.value.clear();
-    fullnameC.value.clear();
-    zipC.value.clear();
+    // flatC.value.clear();
+    // addressC.value.clear();
+    // fullnameC.value.clear();
+    // zipC.value.clear();
     Base.configController.selectedTab(-1);
     SnackbarHelper.successSnackbar(
         "Profile Saved !", " Profile saved successfully");
